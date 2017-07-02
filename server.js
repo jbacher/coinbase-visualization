@@ -144,13 +144,14 @@ app.get('/oauth/callback', function(req, res) {
                 code: oauth_code,
                 client_id: '266828eb7143c9953eb9b7ddaef6e36e7e683b66e362e0a841c306d5fc12d04c',
                 client_secret: 'bff8216cd9482559a258e94678cc54d072c8c8512d731a52fb520404c17e0304',
-                redirect_uri: 'http://localhost:3000/'
+                redirect_uri: 'http://afternoon-ridge-15676.herokuapp.com/'
             }
         },
         function (error, response, body) {
             console.log('error:', error); // Print the error if one occurred 
              console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
              console.log('body:', body); // Print the HTML
+            console.log('probably going to redirect')
             //  res.send(body)
         }
     )
