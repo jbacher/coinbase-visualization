@@ -1,0 +1,22 @@
+{
+  "name": "coinbase_integration",
+  "version": "1.0.0",
+  "description": "Wallet manager for IT website",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Jacob Bacher",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "coinbase": "^2.0.6",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "highcharts": "^5.0.12",
+    "http": "0.0.0",
+    "jade": "^1.11.0",
+    "morgan": "^1.8.2",
+    "path": "^0.12.7"
+  }
+}

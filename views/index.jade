@@ -1,0 +1,52 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='x-ua-compatible', content='ie=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title= title
+    link(rel='stylesheet', href="/css/app.css")
+    script(src="https://code.jquery.com/jquery-3.2.1.js",
+          integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=",
+          crossorigin="anonymous")
+    script(src="http://code.highcharts.com/highcharts.js")
+    
+    //- link(rel='stylesheet', href='/css/main.css')
+    //- link(rel='stylesheet', href='/css/main2.css')
+  body
+    //- include includes/header
+    //- block content
+    //- include includes/footer
+    .left This will a left pane with your purchases amount = #{price}
+        div Transactions
+        ul.transactions
+            for transaction in transactions
+                li id = #{transaction.id}
+    .right
+        #container(style="width:100%", height="400")
+    script.
+        $(function () { 
+            var myChart = Highcharts.chart('container', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Value Change After Transaction'
+                },
+                xAxis: {
+                    categories: ['Apples', 'Bananas', 'Oranges']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Fruit eaten'
+                    }
+                },
+                series: [{
+                    name: 'Jane',
+                    data: [1, 0, 4]
+                }, {
+                    name: 'John',
+                    data: [5, 7, 3]
+                }]
+            });
+        });

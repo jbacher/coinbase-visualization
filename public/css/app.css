@@ -1,0 +1,9 @@
+.left{
+    width: 30%;
+    float: left;
+}
+
+.right {
+    width: 60%;
+    float: right;
+}
