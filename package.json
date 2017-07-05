@@ -17,6 +17,7 @@
     "http": "0.0.0",
     "jade": "^1.11.0",
     "morgan": "^1.8.2",
+    "passport-coinbase": "^0.1.2",
     "path": "^0.12.7"
   }
 }
