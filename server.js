@@ -101,9 +101,10 @@ app.get('/',  ensureAuthenticated, function (req, res) {
             body = JSON.parse(body)
 
             //TODO if this app is for jairo and uses diff wallets, need to add that functionality
-            account_id = body.data[0].id
+            // account_id = body.data[0].id
+            console.log(body.data)
             console.log('account_id:', account_id)
-            request('https://api.coinbase.com/v2/accounts/'+account_id+'/transactions',
+            request('https://api.coinbase.com/v2/accounts/'+account_id+'/buys',
             {
                 headers:{
                     'CB-VERSION' : "2017-06-08",
