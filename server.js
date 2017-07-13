@@ -65,7 +65,7 @@ app.set('view engine', 'jade')
 
 app.get('/logout', function(req, res){
     req.logout();
-    res.redirect('/');
+    res.redirect('/login');
 })
 
 //taking care of business
@@ -114,6 +114,7 @@ app.get('/',  ensureAuthenticated, function (req, res) {
                 }
                 console.log(body)
                 body = JSON.parse(body)
+                // res.send(body.data)
                 res.render('index', {title : 'transactions', transactions: body.data})
             })
             // res.render('index', {title: 'transacations', transactions: transactions})

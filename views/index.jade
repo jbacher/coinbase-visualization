@@ -10,6 +10,7 @@ html
           integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=",
           crossorigin="anonymous")
     script(src="http://code.highcharts.com/highcharts.js")
+    script transactionData= !{JSON.stringify(transactions).replace(/<\//g, '<\\/')}
     script(src="/js/app.js")
     
     //- link(rel='stylesheet', href='/css/main.css')
@@ -20,10 +21,11 @@ html
     //- include includes/footer
     .left Click on a transaction to see its value fluctuaction 
         ul.transactions
-            for (var i=0; i<transactions.length; i++)
-                li.transaction-container
-                    .amt-#{i} amt = #{transaction.amount.amount} #{transaction.amount.currency}
+            for transaction, i in transactions
+                li(class='transaction-container', id='amt-#{i}')
+                    div bought #{transaction.amount.amount} #{transaction.amount.currency}
                     div You paid $#{transaction.total.amount} originally
                     div bought on #{transaction.created_at} 
     .right
+        a(href="/logout") Switch Wallet
         #container(style="width:100%", height="400")
