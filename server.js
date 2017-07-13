@@ -22,8 +22,6 @@ app.use(session({secret: 'keyboard cat',
 
 
 //TODO move to dotenv
-var apiKey = 'z93mNhfDQLAd9oOD'
-var apiSecret = 'qbbZcFdO3XQqoEIqpC8DzqqLrvSOuzXb'
 var client_id = 'a3d8a74a99cc4decff2ff0d5cc9aba7fd2630089ba2c544e79d574a28d1da6ec'
 var client_secret = 'b9cd2389af59e7cd5872443d1b0867e16d3e07d8acc3035cddcc5f8738dd7c19'
 var token_keys = {}
@@ -32,7 +30,7 @@ passport.use(new CoinbaseStrategy({
     clientID: client_id,
     clientSecret: client_secret,
     callbackURL: 'http://localhost:3000/oauth/callback',
-    scope: ["wallet:transactions:read", "wallet:accounts:read"],
+    scope: ["wallet:transactions:read", "wallet:accounts:read", 'wallet:buys:read'],
     userProfileURL: 'https://api.coinbase.com/v2/users'
 },
     function(access_token, refresh_token, profile, done) {
@@ -101,10 +99,9 @@ app.get('/',  ensureAuthenticated, function (req, res) {
             body = JSON.parse(body)
 
             //TODO if this app is for jairo and uses diff wallets, need to add that functionality
-            // account_id = body.data[0].id
             console.log(body.data)
-            console.log('account_id:', account_id)
-            request('https://api.coinbase.com/v2/accounts/'+account_id+'/buys',
+            // console.log('account_id:', account_id)
+            request('https://api.coinbase.com/'+body.data[0].resource_path+'/buys',
             {
                 headers:{
                     'CB-VERSION' : "2017-06-08",
@@ -115,20 +112,13 @@ app.get('/',  ensureAuthenticated, function (req, res) {
                 if (error) {
                     console.log('error')
                 }
+                console.log(body)
                 body = JSON.parse(body)
-                console.log(body.data)
                 res.render('index', {title : 'transactions', transactions: body.data})
             })
             // res.render('index', {title: 'transacations', transactions: transactions})
         })
 
-    // var currency1 = req.user._json.bitcoin_units
-    // var currency2 = req.user._json.native_currency
-
-    // console.log('hi2')
-    // console.log('currency 1:', currency1)
-    // console.log('currency 1:', currency2)
-    // coinbase_data = {}
     // request('https://api.coinbase.com/v2/prices/'+currency1+'-'+currency2+'/spot',
     //   {headers :
     //         {
@@ -177,42 +167,7 @@ app.get('/oauth/callback',
         res.redirect("/")
     })
 
-// app.get('/oauth/callback', function(req, res) {
-//     console.log('hi3')
-//     oauth_code = req.query.code
-//     console.log('code='+oauth_code)
-//     request.post(
-//         'https://api.coinbase.com/oauth/token',
-//         {form : 
-//             {
-//                 grant_type: 'authorization_code',
-//                 code: oauth_code,
-//                 client_id: client_id,
-//                 client_secret: 'b9cd2389af59e7cd5872443d1b0867e16d3e07d8acc3035cddcc5f8738dd7c19',
-//                 redirect_uri: 'http://localhost:3000/oauth/callback' //do i have to encode this?
-//             }
-//         },
-//         function (error, response, body) {
-//             console.log('error:', error); // Print the error if one occurred 
-//              console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
-//              console.log('body:', body); // Print the HTML
-//             console.log('probably going to redirect')
-//             //  res.send(body)
-//             body = JSON.parse(body)
-//             console.log('access_token', body['access_token'])
-//             console.log('refresh_token', body['refresh_token'])
-//             //add these tokens in the header request
 
-//             //valid session
-//             req.session.valid = true;
-//             req.session.access_token = body['access_token']
-//             req.session.refresh_token = body['refresh_token']
-    
-
-//             res.redirect('/display_test')
-//         }
-//     )
-// })
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login')
