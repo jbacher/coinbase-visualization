@@ -22,8 +22,8 @@ app.use(session({secret: 'keyboard cat',
 
 
 //TODO move to dotenv
-var client_id = 'a3d8a74a99cc4decff2ff0d5cc9aba7fd2630089ba2c544e79d574a28d1da6ec'
-var client_secret = 'b9cd2389af59e7cd5872443d1b0867e16d3e07d8acc3035cddcc5f8738dd7c19'
+var client_id = ''
+var client_secret = ''
 var token_keys = {}
 
 passport.use(new CoinbaseStrategy({
